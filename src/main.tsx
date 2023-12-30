@@ -30,7 +30,7 @@ const router = createBrowserRouter([
 
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
-const env = import.meta.env;
+// const env = import.meta.env;
 
 function App() {
   return (
