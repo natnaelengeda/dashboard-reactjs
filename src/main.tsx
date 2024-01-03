@@ -9,11 +9,19 @@ import {
 import './index.css';
 import './styles/tailwind.css';
 
+// Fonts
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+
+
 // Rooit Page
 import Root from './routes/root';
 
 // POages
 import Index from './pages/Index';
+import Login from './pages/auth/login';
 
 const router = createBrowserRouter([
   {
@@ -25,7 +33,15 @@ const router = createBrowserRouter([
         element: <Index />
       }
     ]
+  },
+  {
+    path: '/auth/login',
+    element: <Login />,
+
+
   }
+
+
 ]);
 
 
