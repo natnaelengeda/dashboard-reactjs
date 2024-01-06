@@ -13,7 +13,7 @@ import {
 
 export default function Login() {
   return (
-    <main className='w-full min-h-screen h-full flex flex-col gap-20 items-center py-20'>
+    <main className='w-full min-h-screen h-full flex flex-col gap-20 items-center justify-between py-20'>
 
       {/* Signin Form */}
       <div className="w-1/3 flex flex-col items-center justify-center gap-10">

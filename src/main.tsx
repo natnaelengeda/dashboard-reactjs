@@ -15,13 +15,14 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
-
 // Rooit Page
 import Root from './routes/root';
 
 // POages
 import Index from './pages/Index';
 import Login from './pages/auth/login';
+import { Provider } from 'react-redux';
+import { store } from './store';
 
 const router = createBrowserRouter([
   {
@@ -37,13 +38,8 @@ const router = createBrowserRouter([
   {
     path: '/auth/login',
     element: <Login />,
-
-
   }
-
-
 ]);
-
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 // const env = import.meta.env;
@@ -55,7 +51,9 @@ function App() {
 };
 
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <Provider store={store}>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  </Provider>
 );
