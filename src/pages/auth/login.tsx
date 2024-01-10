@@ -11,6 +11,8 @@ import {
   Typography
 } from '@mui/material';
 
+import { Link } from "react-router-dom";
+
 export default function Login() {
   return (
     <main className='w-full min-h-screen h-full flex flex-col gap-20 items-center justify-between py-20'>
@@ -104,12 +106,12 @@ export default function Login() {
               }}>
               Forgot password?
             </Typography>
-            <Typography sx={{
-              cursor: 'pointer',
-              ":hover": { color: 'darkblue', textDecoration: 'underline' }
-            }}>
+            <Link
+              className="hover:text-blue-600 hover:underline"
+              to={'/auth/signup'}
+            >
               Don't have an account, Sign up?
-            </Typography>
+            </Link>
           </Box>
 
         </Box>

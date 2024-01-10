@@ -4,12 +4,17 @@ import {
   Outlet,
   // useNavigate,
 } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function Root() {
   const admin = useSelector((state: any) => state.admin);
+  const isLoggedIn = admin.isloggedIn;
+  const navigate = useNavigate();
   useEffect(() => {
-
+    if (!isLoggedIn) {
+      navigate('/auth/login');
+    }
   }, []);
 
   return (

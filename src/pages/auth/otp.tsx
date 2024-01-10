@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   LockOutlined
 } from "@mui/icons-material"
@@ -10,23 +11,30 @@ import {
   Button,
   Typography
 } from '@mui/material';
-
+import { MuiOtpInput } from 'mui-one-time-password-input'
 import { Link } from "react-router-dom";
 
-export default function Signup() {
+
+export default function OTP() {
+  const [otp, setOtp] = React.useState('');
+
+  // Handle OTP Change
+  const handleChange = (newValue: any) => {
+    setOtp(newValue)
+  }
+
   return (
     <main className='w-full min-h-screen h-full flex flex-col gap-20 items-center justify-between py-20'>
-
-      {/* Signin Form */}
       <div className="w-1/3 flex flex-col items-center justify-center gap-10">
         <div className="w-full flex flex-col items-center gap-2 font-roboto">
           <span className="w-10 h-10 bg-blue-600 flex items-center justify-center rounded-full">
             <LockOutlined className="w-14 h-14 text-white " />
           </span>
           <div>
-            <h1 className="text-2xl">Sign up</h1>
+            <h1 className="text-2xl">OTP</h1>
           </div>
         </div>
+
         <Box
           component={'form'}
           sx={{
@@ -53,67 +61,25 @@ export default function Signup() {
           noValidate
           autoComplete="off">
 
-          {/* Full Name */}
-          <TextField
+          {/* OTP Field */}
+          <MuiOtpInput
             sx={{
               width: '100%'
             }}
-            id="text"
-            label="Full Name"
-            variant="outlined"
-            required
-            autoComplete="off"
-          />
+            length={6}
+            id="otp"
+            value={otp}
+            onChange={handleChange} />
 
-          {/* Email */}
-          <TextField
-            sx={{
-              width: '100%'
-            }}
-            id="email"
-            label="Email Address"
-            variant="outlined"
-            required
-            autoComplete="off"
-          />
-
-          {/* Password */}
-          <TextField
-            sx={{
-              width: '100%'
-            }}
-            id="password"
-            label="Password"
-            type="password"
-          />
-
-
-
-          {/* Sign in Button */}
+          {/* Submit Button */}
           <Button
             sx={{
               width: '100%',
               height: '50px',
             }}
             variant="contained">
-            Sign Up
+            Submit
           </Button>
-
-          {/* Have an Account */}
-          <Box
-            sx={{
-              width: '100%',
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'end'
-            }}>
-            <Link
-              className="hover:text-blue-600 hover:underline"
-              to={'/auth/login'}
-            >
-              Already Have an , Sign In?
-            </Link>
-          </Box>
         </Box>
       </div>
 
@@ -122,7 +88,6 @@ export default function Signup() {
           Copyright © Dashboard1 2024
         </Typography>
       </Box>
-
     </main>
   )
 }

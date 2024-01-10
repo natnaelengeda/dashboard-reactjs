@@ -23,6 +23,8 @@ import Index from './pages/Index';
 import Login from './pages/auth/login';
 import { Provider } from 'react-redux';
 import { store } from './store';
+import Signup from './pages/auth/signup';
+import OTP from './pages/auth/otp';
 
 const router = createBrowserRouter([
   {
@@ -38,6 +40,14 @@ const router = createBrowserRouter([
   {
     path: '/auth/login',
     element: <Login />,
+  },
+  {
+    path: '/auth/signup',
+    element: <Signup />,
+  },
+  {
+    path: '/auth/otp',
+    element: <OTP />,
   }
 ]);
 
