@@ -8,9 +8,11 @@ import { useNavigate } from 'react-router-dom';
 
 
 export default function Root() {
+  const navigate = useNavigate();
   const admin = useSelector((state: any) => state.admin);
   const isLoggedIn = admin.isloggedIn;
   const navigate = useNavigate();
+
   useEffect(() => {
     if (!isLoggedIn) {
       navigate('/auth/login');

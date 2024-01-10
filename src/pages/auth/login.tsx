@@ -1,3 +1,7 @@
+import { useForm } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from "yup";
+
 import {
   LockOutlined
 } from "@mui/icons-material"
@@ -13,7 +17,22 @@ import {
 
 import { Link } from "react-router-dom";
 
+const schema = yup.object({
+  email: yup.string().required(),
+  password: yup.string().required(),
+}).required();
+
 export default function Login() {
+
+  const { register, handleSubmit, formState: { errors } } = useForm({
+    resolver: yupResolver(schema)
+  });
+
+  const onSubmit = (data: any) => {
+    console.log(data);
+  }
+
+
   return (
     <main className='w-full min-h-screen h-full flex flex-col gap-20 items-center justify-between py-20'>
 
@@ -30,6 +49,7 @@ export default function Login() {
 
         <Box
           component={'form'}
+          onSubmit={handleSubmit(onSubmit)}
           sx={{
             // '& > :not(style)': { m: 1, width: '50ch' },
             width: '300px',
@@ -64,6 +84,7 @@ export default function Login() {
             variant="outlined"
             required
             autoComplete="off"
+            {...register('email')}
           />
 
           {/* Password */}
@@ -74,6 +95,7 @@ export default function Login() {
             id="password"
             label="Password"
             type="password"
+            {...register('password')}
           />
 
           {/* Remember Me */}
