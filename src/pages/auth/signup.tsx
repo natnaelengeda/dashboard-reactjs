@@ -1,35 +1,28 @@
 import {
   LockOutlined
 } from "@mui/icons-material"
+
+// Validation
 import { useForm } from "react-hook-form";
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from "yup";
 
 import {
   Box,
   TextField,
-  Checkbox,
-  FormControlLabel,
   Button,
   Typography
 } from '@mui/material';
 
 import { Link } from "react-router-dom";
+import axios from '../../http/axios';
 
-const schema = yup.object({
-  email: yup.string().required().email(),
-  fullname: yup.string().required(),
-  password: yup.string().required(),
-}).required();
 
 export default function Signup() {
 
-  const { register, handleSubmit, formState: { errors } } = useForm({
-    resolver: yupResolver(schema)
-  });
+  const { register, handleSubmit, formState: { errors } } = useForm();
 
-  const onSubmit = (data: any) => {
-    console.log(data);
+
+  const onSubmit = async (data: any) => {
+    await axios.post('/auth/signup', data);
   }
 
 
@@ -46,6 +39,7 @@ export default function Signup() {
             <h1 className="text-2xl">Sign up</h1>
           </div>
         </div>
+
         <Box
           component={'form'}
           onSubmit={handleSubmit(onSubmit)}
@@ -82,13 +76,12 @@ export default function Signup() {
               id="text"
               label="Full Name"
               variant="outlined"
-              required
               autoComplete="off"
-              {...register('fullname', { required: true, maxLength: 80, minLength: 2, pattern: /^[A-Za-z]+$/i })}
+              {...register('fullname', { required: true, maxLength: 80, minLength: 2, pattern: /^[A-Za-z\s]+$/i })}
             />
-            {errors.fullname && <span className="text-sm text-red-500">This field is required</span>}
+            {errors.fullname && errors.fullname.type == "required" && <span className="text-sm text-red-500">This field is required</span>}
             {errors.fullname && errors.fullname.type === "maxLength" && <span className="text-sm text-red-500">Max length exceeded</span>}
-            {errors.fullname && errors.fullname.type === "minLength" && <span className="text-sm text-red-500">Min length exceeded</span>}
+            {errors.fullname && errors.fullname.type === "minLength" && <span className="text-sm text-red-500">Min Length</span>}
             {errors.fullname && errors.fullname.type === "pattern" && <span className="text-sm text-red-500">Alphabetical characters only</span>}
 
           </div>
@@ -102,11 +95,10 @@ export default function Signup() {
               id="email"
               label="Email Address"
               variant="outlined"
-              required
               autoComplete="off"
               {...register('email', { required: true, pattern: /^\S+@\S+$/i })}
             />
-            {errors.email && <span className="text-sm text-red-500">This field is required</span>}
+            {errors.email && errors.email.type == "required" && <span className="text-sm text-red-500">This field is required</span>}
             {errors.email && errors.email.type === "pattern" && <span className="text-sm text-red-500">Invalid email format</span>}
           </div>
 
@@ -119,9 +111,11 @@ export default function Signup() {
               id="password"
               label="Password"
               type="password"
-              {...register('password')}
+              {...register('password', { required: true, minLength: 8, maxLength: 20 })}
             />
-            {errors.password && <span className="text-sm text-red-500">This field is required</span>}
+            {errors.password && errors.password.type == "required" && <span className="text-sm text-red-500">This field is required</span>}
+            {errors.password && errors.password.type === "maxLength" && <span className="text-sm text-red-500">Max length exceeded</span>}
+            {errors.password && errors.password.type === "minLength" && <span className="text-sm text-red-500">Password must be more than 8</span>}
           </div>
 
           {/* Sign in Button */}
